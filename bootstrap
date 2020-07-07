@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Fail on error
+set -e
+
+# Get Handler name
+# 0 => File name
+# 1 => Function name
+IFS="." read -ra FN <<< "$_HANDLER"
+
+while true
+do
+  # All errors to STDOUT so it can be captured to CloudWatch
+  /opt/bin/php "${FN[0]}.php" 2>&1
+done
